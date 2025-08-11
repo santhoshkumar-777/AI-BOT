@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Model Generator - Perplexity Style</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+   
+    <div class="particles" id="particles"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    <div class="floating-element"></div>
+    
+    <div class="ai-container">
+      
+        <div class="header">
+            <h1 class="logo">🤖 AI Model Generator</h1>
+            <p class="subtitle">Create and customize advanced AI models with cutting-edge technology</p>
+        </div>
+         <form class="ai-form" id="aiForm">
+            <div class="form-group">
+                <label for="modelName" class="form-label">Model Name</label>
+                <input type="text" id="modelName" class="form-input" placeholder="Enter your AI model name" required>
+            </div>
+            <div class="form-group">
+                <label for="modelType" class="form-label">Model Type</label>
+                <select id="modelType" class="form-select" required>
+                    <option value="">Select model type</option>
+                    <option value="language">Language Model</option>
+                    <option value="vision">Computer Vision</option>
+                    <option value="audio">Audio Processing</option>
+                    <option value="multimodal">Multimodal AI</option>
+                    <option value="reinforcement">Reinforcement Learning</option>
+                </select>
+            </div>
+             <div class="form-group">
+                <label for="modelSize" class="form-label">Model Size</label>
+                <select id="modelSize" class="form-select" required>
+                    <option value="">Select model size</option>
+                    <option value="small">Small (1M-100M parameters)</option>
+                    <option value="medium">Medium (100M-1B parameters)</option>
+                    <option value="large">Large (1B-10B parameters)</option>
+                    <option value="xl">Extra Large (10B+ parameters)</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="trainingData" class="form-label">Training Data Type</label>
+                <select id="trainingData" class="form-select" required>
+                    <option value="">Select training data</option>
+                    <option value="text">Text Data</option>
+                    <option value="images">Image Data</option>
+                    <option value="audio">Audio Data</option>
+                    <option value="mixed">Mixed Data</option>
+                    <option value="custom">Custom Dataset</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="useCase" class="form-label">Primary Use Case</label>
+                <input type="text" id="useCase" class="form-input" placeholder="e.g., Natural language processing, Image recognition" required>
+            </div>
+            
+            <button type="submit" class="generate-btn">
+                <i class="fas fa-magic"></i> Generate AI Model
+            </button>
+        </form>
+        
+        
+        <div class="ai-model-display" id="aiModelDisplay"></div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
