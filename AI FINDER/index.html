@@ -8,20 +8,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-   
+    <nav class="main-nav">
+        <div class="nav-logo">🤖 AI Finder</div>
+        <ul class="nav-links">
+            <li><a href="index.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#" id="newModelBtn"><i class="fas fa-plus"></i> New Model</a></li>
+            <li><a href="#" id="downloadBtn"><i class="fas fa-download"></i> Downloads</a></li>
+            <li><a href="#" id="shareBtn"><i class="fas fa-share-alt"></i> Share</a></li>
+        </ul>
+    </nav>
     <div class="particles" id="particles"></div>
     <div class="floating-element"></div>
     <div class="floating-element"></div>
     <div class="floating-element"></div>
     <div class="floating-element"></div>
-    
     <div class="ai-container">
-      
         <div class="header">
             <h1 class="logo">🤖 AI Model Generator</h1>
             <p class="subtitle">Create and customize advanced AI models with cutting-edge technology</p>
         </div>
-         <form class="ai-form" id="aiForm">
+        <form class="ai-form" id="aiForm">
             <div class="form-group">
                 <label for="modelName" class="form-label">Model Name</label>
                 <input type="text" id="modelName" class="form-input" placeholder="Enter your AI model name" required>
@@ -37,7 +43,7 @@
                     <option value="reinforcement">Reinforcement Learning</option>
                 </select>
             </div>
-             <div class="form-group">
+            <div class="form-group">
                 <label for="modelSize" class="form-label">Model Size</label>
                 <select id="modelSize" class="form-select" required>
                     <option value="">Select model size</option>
@@ -47,7 +53,6 @@
                     <option value="xl">Extra Large (10B+ parameters)</option>
                 </select>
             </div>
-            
             <div class="form-group">
                 <label for="trainingData" class="form-label">Training Data Type</label>
                 <select id="trainingData" class="form-select" required>
@@ -59,21 +64,177 @@
                     <option value="custom">Custom Dataset</option>
                 </select>
             </div>
-            
             <div class="form-group">
                 <label for="useCase" class="form-label">Primary Use Case</label>
                 <input type="text" id="useCase" class="form-input" placeholder="e.g., Natural language processing, Image recognition" required>
             </div>
-            
             <button type="submit" class="generate-btn">
                 <i class="fas fa-magic"></i> Generate AI Model
             </button>
         </form>
-        
-        
         <div class="ai-model-display" id="aiModelDisplay"></div>
     </div>
+    <!-- Download Modal -->
+    <div class="modal" id="downloadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-download"></i> Download AI Models</h2>
+                <span class="close-modal" data-modal="downloadModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="download-list" id="downloadList">
+                    <div class="empty-state">
+                        <i class="fas fa-cloud-download-alt empty-icon"></i>
+                        <p>No models available for download yet</p>
+                        <button class="action-btn primary-action" id="createFirstModel">
+                            <i class="fas fa-plus"></i> Create Your First Model
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Share Modal -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-share-alt"></i> Share Your AI Model</h2>
+                <span class="close-modal" data-modal="shareModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="share-options">
+                    <p class="share-text">Share your AI model with others:</p>
+                    <div class="share-link-container">
+                        <input type="text" id="shareLink" class="share-link" value="https://aifinder.example.com/model/ai_123456789" readonly>
+                        <button class="copy-btn" id="copyLinkBtn">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="social-share">
+                        <button class="social-btn twitter">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </button>
+                        <button class="social-btn facebook">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </button>
+                        <button class="social-btn linkedin">
+                            <i class="fab fa-linkedin"></i> LinkedIn
+                        </button>
+                        <button class="social-btn email">
+                            <i class="fas fa-envelope"></i> Email
+                        </button>
+                    </div>
+                    <div class="qr-code-container">
+                        <p>Scan QR Code:</p>
+                        <div class="qr-code" id="qrCode">
+                            <!-- QR code will be generated here -->
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://aifinder.example.com/model/ai_123456789" alt="QR Code">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Model Modal -->
+    <div class="modal" id="newModelModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-plus"></i> Create New AI Model</h2>
+                <span class="close-modal" data-modal="newModelModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p class="modal-description">Start creating a new AI model with our advanced generator:</p>
+                <button class="action-btn primary-action full-width" id="startNewModel">
+                    <i class="fas fa-magic"></i> Start Creating
+                </button>
+            </div>
+        </div>
+    </div>
     
+    <!-- Training Modal -->
+    <div class="modal" id="trainingModal">
+        <div class="modal-content training-modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-cogs"></i> Training Your AI Model</h2>
+                <span class="close-modal" data-modal="trainingModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="training-info">
+                    <h3 id="trainingModelName">Model Name</h3>
+                    <p id="trainingModelDetails">Type: Language Model, Size: Medium</p>
+                </div>
+                
+                <div class="training-progress">
+                    <h4>Training Progress</h4>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="trainingProgressBar"></div>
+                    </div>
+                    <p class="progress-text"><span id="trainingProgressPercent">0</span>% Complete</p>
+                    <p class="progress-status" id="trainingStatus">Initializing training environment...</p>
+                </div>
+                
+                <div class="training-tools">
+                    <h4>Select AI Tools to Include</h4>
+                    <div class="tools-grid">
+                        <div class="tool-item">
+                            <input type="checkbox" id="toolNLP" class="tool-checkbox">
+                            <label for="toolNLP" class="tool-label">
+                                <i class="fas fa-comment-alt"></i>
+                                <span>Natural Language Processing</span>
+                            </label>
+                        </div>
+                        <div class="tool-item">
+                            <input type="checkbox" id="toolCV" class="tool-checkbox">
+                            <label for="toolCV" class="tool-label">
+                                <i class="fas fa-eye"></i>
+                                <span>Computer Vision</span>
+                            </label>
+                        </div>
+                        <div class="tool-item">
+                            <input type="checkbox" id="toolSpeech" class="tool-checkbox">
+                            <label for="toolSpeech" class="tool-label">
+                                <i class="fas fa-microphone"></i>
+                                <span>Speech Recognition</span>
+                            </label>
+                        </div>
+                        <div class="tool-item">
+                            <input type="checkbox" id="toolRL" class="tool-checkbox">
+                            <label for="toolRL" class="tool-label">
+                                <i class="fas fa-robot"></i>
+                                <span>Reinforcement Learning</span>
+                            </label>
+                        </div>
+                        <div class="tool-item">
+                            <input type="checkbox" id="toolGAN" class="tool-checkbox">
+                            <label for="toolGAN" class="tool-label">
+                                <i class="fas fa-images"></i>
+                                <span>Generative Networks</span>
+                            </label>
+                        </div>
+                        <div class="tool-item">
+                            <input type="checkbox" id="toolTransformer" class="tool-checkbox">
+                            <label for="toolTransformer" class="tool-label">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Transformer Architecture</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="training-actions">
+                    <button class="action-btn" id="pauseTrainingBtn">
+                        <i class="fas fa-pause"></i> Pause Training
+                    </button>
+                    <button class="action-btn primary-action" id="completeTrainingBtn">
+                        <i class="fas fa-check"></i> Complete Training
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
